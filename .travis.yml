@@ -1,8 +1,18 @@
-language: java
-sudo: false # faster builds
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+
+
 
 # sudo: required
 # services:
